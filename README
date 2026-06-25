@@ -1,0 +1,140 @@
+# MindSentences MEG Dataset
+
+## Overview
+
+The **MindSentences** dataset is a multimodal neuroimaging dataset designed to study sentence perception and inner speech (mental repetition) using magnetoencephalography (MEG). Twelve native English speakers listened to spoken sentences with varied syntactic structures and subsequently performed silent mental repetition of the same sentences.
+
+The dataset follows the **BIDS (Brain Imaging Data Structure)** standard for MEG data and includes MEG recordings, behavioral logs, anatomical MRI data, audio stimuli, transcripts, and metadata describing the experimental versions.
+
+## Participants
+
+* **Total participants**: 12 (sub-01 to sub-12)
+* **Sessions per participant**: 8 MEG sessions 
+* **\!/ Sub-09 was a distracted participant and can serve as a control**
+
+  * *Exception*: **sub-02** and **sub-11** completed 10 and 9 MEG sessions, respectively.
+
+* **Anatomical MRI**: One T1-weighted anatomical scan per participant.
+
+## Experimental Task
+
+The experiment consists of repeated runs of a sentence-processing paradigm combining auditory perception and inner speech.
+
+### Task Structure
+
+Each run follows the same sequence:
+
+1. **Sentence perception**
+
+   * A white fixation cross appears on the screen
+   * A sentence is presented auditorily
+
+2. **Inner speech (mental repetition)**
+
+   * A green fixation cross signals the start of the mental repetition phase
+   * The participant initiates mental repetition by pressing a button (trigger: `STI012`)
+   * The participant ends mental repetition by pressing the same button 
+
+3. The task then automatically proceeds to the next sentence
+
+### Sentence Replay
+
+* If the participant does **not remember the sentence**, they can press another button (trigger: `STO015`)
+* The sentence will then be replayed later, randomly inserted among the remaining sentences of the same run
+
+### Timing and Content
+
+* **Runs per participant**: up to 40
+
+  * *Exception*: **sub-08** completed 39 runs and **sub-11** completed 36 runs due to time constraints.
+* **Sentences per run**: 80
+* **Sentence types**: diverse syntactic structures and lexical content
+
+## Data Organization
+
+The dataset is organized according to BIDS conventions:
+
+```
+MindSentences/
+├── dataset_description.json
+├── participants.tsv
+├── participants.json
+├── README
+├── sub-01/ … sub-12/
+│   ├── beh/
+│   │   └── sub-XX_task-mentalizing_beh.tsv
+│   ├── ses-01/ … ses-08/
+│   │   ├── anat/            (for session 01 only)
+│   │   │   ├── sub-XX_T1w.nii.gz
+│   │   │   └── sub-XX_T1w.json
+│   │   ├── meg/
+│   │   │   ├── *_task-mentalizing_run-YY_meg.fif
+│   │   │   ├── *_channels.tsv
+│   │   │   ├── *_meg.json
+│   │   │   └── empty-room recordings
+│   │   └── *_scans.tsv
+└── sourcedata/
+```
+
+## MEG and EMG Data
+
+### MEG Data
+
+* **MEG format**: `.fif`
+* **EMG recordings**: For participants **sub-05 to sub-08 and sub-10 to sub-12**, EMG electrodes were recorded **for all runs and all sessions (except sub-10 ses-06, run 30)**
+* **Per session**:
+  * Empty-room recordings for noise characterization
+  * Crosstalk and calibration files
+  * Multiple task runs with associated metadata (`channels.tsv`, `meg.json`)
+  * EMG channels are included when available and documented in the corresponding `channels.tsv` files
+
+## Behavioral Data
+
+Behavioral timing and button-press information are stored in:
+
+* `beh/sub-XX_task-mentalizing_beh.tsv`
+
+These files include information about sentence order, replay events, and participant responses.
+
+## Stimuli and Linguistic Material
+
+Stimulus materials are provided in `sourcedata/`:
+
+```
+sourcedata/
+├── audio_mp3/        # Audio stimuli (mp3)
+├── audio_old/          # Legacy audio versions (sub-01 to mid sub-02)
+├── sentences_dataset.csv
+├── sentences_metadata.csv
+└── versions/
+    └── all_sentences/2.1/
+```
+
+* Each audio file has a corresponding transcript (`.txt`)
+* CSV files describe sentence content, linguistic properties, and experimental versions
+* The `versions/` directory documents different iterations of the stimulus set
+
+## EMG Control During Inner Speech
+
+For participants **sub-05, sub-06, sub-07, sub-08, sub-10, sub-11, and sub-12**, electromyography (EMG) electrodes were used throughout all sessions and runs. The EMG recordings serve as a control measure to ensure that participants did not produce overt speech or articulatory movements during the inner speech.
+
+## Purpose and Applications
+
+The MindSentences dataset enables investigation of:
+
+* Neural correlates of sentence perception
+* Inner speech and mental repetition mechanisms
+* Syntax and language structure processing
+* Longitudinal MEG recordings across multiple sessions
+
+## Notes
+
+* All data are anonymized
+* The dataset complies with BIDS-MEG specifications
+* Session and run numbering are consistent across participants, with documented exceptions noted above
+
+﻿References
+----------
+Appelhoff, S., Sanderson, M., Brooks, T., Vliet, M., Quentin, R., Holdgraf, C., Chaumon, M., Mikulan, E., Tavabi, K., Höchenberger, R., Welke, D., Brunner, C., Rockhill, A., Larson, E., Gramfort, A. and Jas, M. (2019). MNE-BIDS: Organizing electrophysiological data into the BIDS format and facilitating their analysis. Journal of Open Source Software 4: (1896).https://doi.org/10.21105/joss.01896
+
+Niso, G., Gorgolewski, K. J., Bock, E., Brooks, T. L., Flandin, G., Gramfort, A., Henson, R. N., Jas, M., Litvak, V., Moreau, J., Oostenveld, R., Schoffelen, J., Tadel, F., Wexler, J., Baillet, S. (2018). MEG-BIDS, the brain imaging data structure extended to magnetoencephalography. Scientific Data, 5, 180110.https://doi.org/10.1038/sdata.2018.110

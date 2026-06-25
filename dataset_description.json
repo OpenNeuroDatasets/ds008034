@@ -1,0 +1,10 @@
+{
+    "Name": "MindSentences2025",
+    "BIDSVersion": "1.7.0",
+    "DatasetType": "raw",
+    "Authors": [
+        "Corentin Bel",
+        "Julie Bonnaire",
+	"Christophe Pallier"
+    ]
+}
