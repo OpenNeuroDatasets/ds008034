@@ -5,8 +5,6 @@
     "Authors": [
         "Corentin Bel",
         "Julie Bonnaire",
-        "Christophe Pallier"
-    ],
-    "DatasetDOI": "doi:10.18112/openneuro.ds008034.v1.0.0",
-    "License": "CC0"
+	"Christophe Pallier"
+    ]
 }
