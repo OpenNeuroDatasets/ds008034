@@ -1,0 +1,12 @@
+{
+    "Name": "MindSentences2025",
+    "BIDSVersion": "1.7.0",
+    "DatasetType": "raw",
+    "Authors": [
+        "Corentin Bel",
+        "Julie Bonnaire",
+        "Christophe Pallier"
+    ],
+    "DatasetDOI": "doi:10.18112/openneuro.ds008034.v1.1.0",
+    "License": "CC0"
+}
